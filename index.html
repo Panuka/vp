@@ -2,36 +2,57 @@
 <html>
 <head>
 	<title>Pregnantation -- Progress bar</title>
+	<link rel="stylesheet" type="text/css" href="loading-bar.min.css">
 	<style type="text/css">
 		#container {
 		    margin: 50px;
 		    width: auto;
 		}
+		#progress {
+				color: rgb(237, 106, 90);
+				stroke-width: 135;
+				stroke-lincap: round;
+		}
 	</style>
 </head>
 <body>
-	<div id="container">
-	  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 100 100">
-	                  <path fill-opacity="0" stroke-width="1" stroke="#bbb" d="M81.495,13.923c-11.368-5.261-26.234-0.311-31.489,11.032C44.74,13.612,29.879,8.657,18.511,13.923  C6.402,19.539,0.613,33.883,10.175,50.804c6.792,12.04,18.826,21.111,39.831,37.379c20.993-16.268,33.033-25.344,39.819-37.379  C99.387,33.883,93.598,19.539,81.495,13.923z"/>
-	                  <path id="heart-path" fill-opacity="0" stroke-width="3" stroke="#ED6A5A" d="M81.495,13.923c-11.368-5.261-26.234-0.311-31.489,11.032C44.74,13.612,29.879,8.657,18.511,13.923  C6.402,19.539,0.613,33.883,10.175,50.804c6.792,12.04,18.826,21.111,39.831,37.379c20.993-16.268,33.033-25.344,39.819-37.379  C99.387,33.883,93.598,19.539,81.495,13.923z"/>
-	              </svg>
-	</div>
-	<script src="progressbar.min.js"></script>
+
+<!-- <svg> -->
+<!-- <path fill="none" stroke="#ed2024" d="
+M90.5,23.2c0-12.5-10.2-22.7-22.7-22.7
+c-13.6,0-20.9,8.6-22.3,13.8C44.3,8.9,
+35.1,0.5,23.2,0.5C10.7,0.5,0.5,10.7,
+0.5,23.2c0,22.2,36.5,45.3,45,55.9
+C53.5,67.3,90.5,46.3,90.5,23.2z"/>
+</svg> -->
+
+<div class="ldBar label-center"
+style="width: 100%;
+font-size: 2.5em;
+    height: auto;" 
+	id="progress"
+   data-type="stroke"
+   data-path="M90.5,23.2c0-12.5-10.2-22.7-22.7-22.7
+c-13.6,0-20.9,8.6-22.3,13.8C44.3,8.9,
+35.1,0.5,23.2,0.5C10.7,0.5,0.5,10.7,
+0.5,23.2c0,22.2,36.5,45.3,45,55.9
+C53.5,67.3,90.5,46.3,90.5,23.2z"
+   data-stroke="rgb(237, 106, 90)"
+   data-stroke-width="1"></div>
+
+
+	<script src="loading-bar.min.js"></script>
 	<script type="text/javascript">
 		const diffTotalTime = Math.abs(new Date('3/28/2022') - new Date('7/7/2021')),
 			  diffTotalDays = Math.ceil(diffTotalTime / (1000 * 60 * 60 * 24)),
 			  diffCurrentTime = Math.abs(new Date('7/7/2021') - new Date()),
 			  diffCurrentDays = Math.ceil(diffCurrentTime / (1000 * 60 * 60 * 24)),
+			  progressRaw = diffCurrentDays/diffTotalDays*100/100,
 			  progress = Math.round(diffCurrentDays/diffTotalDays*100)/100;
+			  var bar = new ldBar("#progress");
+			  bar.set(progressRaw*100);
 
-
-		var bar = new ProgressBar.Path('#heart-path', {
-		  easing: 'easeInOut',
-		  duration: 4000
-		});
-
-		bar.set(0);
-		bar.animate(progress);
+		// document.getElementById('progress').textContent = Math.round((progress + Number.EPSILON) * 100) + "%"
 	</script>
 </body>
 </html>
